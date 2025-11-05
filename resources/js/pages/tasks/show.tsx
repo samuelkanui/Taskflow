@@ -27,7 +27,7 @@ interface TaskShowProps {
         dependencies?: Task[];
         dependents?: Task[];
     };
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function TaskShow() {

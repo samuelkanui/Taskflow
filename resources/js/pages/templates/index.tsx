@@ -16,7 +16,7 @@ import { useState } from 'react';
 
 interface TemplatesPageProps {
     templates: (TaskTemplate & { category?: Category })[];
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function TemplatesIndex() {

@@ -31,11 +31,11 @@ interface TasksPageProps {
         sort?: string;
         dir?: string;
     };
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function TasksIndex() {
-    const { tasks, categories, tags, goals, filters } =
+    const { tasks, goals, filters } =
         usePage<TasksPageProps>().props;
     const [search, setSearch] = useState(filters.search || '');
 
@@ -82,17 +82,6 @@ export default function TasksIndex() {
                 return 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0 shadow-md';
             default:
                 return 'bg-gradient-to-r from-gray-500 to-slate-500 text-white border-0 shadow-md';
-        }
-    };
-
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'completed':
-                return 'text-green-600 bg-green-50';
-            case 'in_progress':
-                return 'text-blue-600 bg-blue-50';
-            default:
-                return 'text-gray-600 bg-gray-50';
         }
     };
 

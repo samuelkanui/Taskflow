@@ -20,7 +20,7 @@ interface CalendarTask {
 
 interface CalendarPageProps {
     tasks: CalendarTask[];
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function TasksCalendar() {

@@ -32,7 +32,7 @@ interface DashboardStats {
 interface DashboardProps {
     stats: DashboardStats;
     upcomingTasks: Task[];
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function Dashboard() {

@@ -49,7 +49,7 @@ interface AnalyticsPageProps {
         totalGoals: number;
         completedGoals: number;
     };
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 const COLORS = {

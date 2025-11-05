@@ -10,7 +10,7 @@ interface EditTaskPageProps {
     tags: Tag[];
     goals: Goal[];
     allTasks: Task[];
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function EditTask() {

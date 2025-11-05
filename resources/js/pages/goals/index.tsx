@@ -19,7 +19,7 @@ import { useState } from 'react';
 
 interface GoalsPageProps {
     goals: (Goal & { tasks_count?: number })[];
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function GoalsIndex() {

@@ -13,6 +13,7 @@ import {
     Sparkles,
     Tag as TagIcon,
     X,
+    type LucideIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -27,7 +28,7 @@ interface KanbanPageProps {
         name: string;
         color: string;
     }>;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function TasksKanban() {
@@ -93,205 +94,6 @@ export default function TasksKanban() {
             },
         );
     };
-
-    const getPriorityColor = (priority: string) => {
-        switch (priority) {
-            case 'high':
-                return 'border-l-4 border-l-red-500 bg-gradient-to-r from-red-50/50 to-transparent dark:from-red-900/20';
-            case 'medium':
-                return 'border-l-4 border-l-amber-500 bg-gradient-to-r from-amber-50/50 to-transparent dark:from-amber-900/20';
-            case 'low':
-                return 'border-l-4 border-l-green-500 bg-gradient-to-r from-green-50/50 to-transparent dark:from-green-900/20';
-            default:
-                return 'border-l-4 border-l-gray-500 bg-gradient-to-r from-gray-50/50 to-transparent dark:from-gray-900/20';
-        }
-    };
-
-    const TaskCard = ({ task }: { task: Task }) => (
-        <div
-            className={`group mb-4 cursor-pointer rounded-xl border border-gray-200 p-4 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl dark:border-gray-700 dark:bg-gray-800 ${getPriorityColor(task.priority)}`}
-        >
-            <Link href={`/tasks/${task.id}`} className="block">
-                <h3 className="mb-2 text-lg font-bold text-gray-900 transition-colors hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:bg-clip-text hover:text-transparent dark:text-white">
-                    {task.title}
-                </h3>
-
-                {task.description && (
-                    <p className="mb-3 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
-                        {task.description}
-                    </p>
-                )}
-
-                <div className="space-y-2">
-                    {/* Meta Info */}
-                    <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                        {task.category && (
-                            <div className="flex items-center gap-1">
-                                <Folder
-                                    className="size-3"
-                                    style={{ color: task.category.color }}
-                                />
-                                <span style={{ color: task.category.color }}>
-                                    {task.category.name}
-                                </span>
-                            </div>
-                        )}
-                        {task.due_date && (
-                            <div className="flex items-center gap-1">
-                                <Calendar className="size-3" />
-                                <span>
-                                    {new Date(
-                                        task.due_date,
-                                    ).toLocaleDateString()}
-                                </span>
-                            </div>
-                        )}
-                        {task.estimated_minutes && (
-                            <div className="flex items-center gap-1">
-                                <Clock className="size-3" />
-                                <span>{task.estimated_minutes}m</span>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Tags */}
-                    {task.tags && task.tags.length > 0 && (
-                        <div className="flex items-center gap-1">
-                            <TagIcon className="size-3 text-gray-400" />
-                            <div className="flex flex-wrap gap-1">
-                                {task.tags.map((tag) => (
-                                    <span
-                                        key={tag.id}
-                                        className="rounded-full px-2 py-0.5 text-xs"
-                                        style={{
-                                            backgroundColor: tag.color + '20',
-                                            color: tag.color,
-                                        }}
-                                    >
-                                        {tag.name}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Subtasks Progress */}
-                    {task.subtasks && task.subtasks.length > 0 && (
-                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                            <CheckCircle2 className="size-3" />
-                            <span>
-                                {
-                                    task.subtasks.filter(
-                                        (st) => st.is_completed,
-                                    ).length
-                                }
-                                /{task.subtasks.length} subtasks
-                            </span>
-                        </div>
-                    )}
-
-                    {/* Priority Badge */}
-                    <div>
-                        <span
-                            className={`inline-block rounded-lg px-3 py-1 text-xs font-bold tracking-wide text-white uppercase shadow-sm ${
-                                task.priority === 'high'
-                                    ? 'bg-gradient-to-r from-red-500 to-rose-500'
-                                    : task.priority === 'medium'
-                                      ? 'bg-gradient-to-r from-amber-500 to-orange-500'
-                                      : 'bg-gradient-to-r from-green-500 to-emerald-500'
-                            }`}
-                        >
-                            {task.priority}
-                        </span>
-                    </div>
-                </div>
-            </Link>
-
-            {/* Status Change Buttons */}
-            <div className="mt-3 hidden border-t border-gray-200 pt-3 opacity-0 transition-all group-hover:block group-hover:opacity-100 dark:border-gray-700">
-                <div className="flex gap-2 text-xs">
-                    {task.status !== 'pending' && (
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                updateStatus(task.id, 'pending');
-                            }}
-                            className="rounded-lg bg-gradient-to-r from-gray-100 to-gray-200 px-3 py-1.5 font-semibold text-gray-700 shadow-sm transition-all hover:scale-105 hover:shadow-md dark:from-gray-700 dark:to-gray-600 dark:text-gray-200"
-                        >
-                            → Pending
-                        </button>
-                    )}
-                    {task.status !== 'in_progress' && (
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                updateStatus(task.id, 'in_progress');
-                            }}
-                            className="rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm transition-all hover:scale-105 hover:shadow-md"
-                        >
-                            → In Progress
-                        </button>
-                    )}
-                    {task.status !== 'completed' && (
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault();
-                                updateStatus(task.id, 'completed');
-                            }}
-                            className="rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 px-3 py-1.5 font-semibold text-white shadow-sm transition-all hover:scale-105 hover:shadow-md"
-                        >
-                            → Completed
-                        </button>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
-
-    const Column = ({
-        title,
-        tasks,
-        color,
-        icon: Icon,
-    }: {
-        title: string;
-        tasks: Task[];
-        color: string;
-        icon: any;
-    }) => (
-        <div className="flex min-h-[700px] flex-1 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50/50 shadow-xl dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
-            <div className={`flex items-center gap-3 p-5 ${color}`}>
-                <div className="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
-                    <Icon className="size-6 text-white" />
-                </div>
-                <h2 className="text-xl font-bold text-white">{title}</h2>
-                <span className="ml-auto rounded-full bg-white/30 px-3 py-1 text-sm font-bold text-white shadow-md backdrop-blur-sm">
-                    {tasks.length}
-                </span>
-            </div>
-            <div className="flex-1 overflow-y-auto p-4">
-                {tasks.length === 0 ? (
-                    <div className="flex h-full flex-col items-center justify-center text-center">
-                        <div className="mb-3 rounded-full bg-gray-100 p-4 dark:bg-gray-800">
-                            <Icon className="size-8 text-gray-400" />
-                        </div>
-                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                            No tasks yet
-                        </p>
-                        <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
-                            Tasks will appear here
-                        </p>
-                    </div>
-                ) : (
-                    <div>
-                        {tasks.map((task) => (
-                            <TaskCard key={task.id} task={task} />
-                        ))}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
 
     return (
         <AppLayout>
@@ -487,18 +289,21 @@ export default function TasksKanban() {
                             tasks={filterTasks(tasks.pending)}
                             color="bg-gradient-to-r from-gray-600 to-gray-700"
                             icon={Clock}
+                            onStatusChange={updateStatus}
                         />
                         <Column
                             title="In Progress"
                             tasks={filterTasks(tasks.in_progress)}
                             color="bg-gradient-to-r from-blue-600 to-indigo-600"
                             icon={Clock}
+                            onStatusChange={updateStatus}
                         />
                         <Column
                             title="Completed"
                             tasks={filterTasks(tasks.completed)}
                             color="bg-gradient-to-r from-green-600 to-emerald-600"
                             icon={CheckCircle2}
+                            onStatusChange={updateStatus}
                         />
                     </div>
 
@@ -561,5 +366,194 @@ export default function TasksKanban() {
                 </div>
             </div>
         </AppLayout>
+    );
+}
+
+// Helper function for priority colors
+function getPriorityColor(priority: string) {
+    switch (priority) {
+        case 'high':
+            return 'border-l-4 border-l-red-500 bg-gradient-to-r from-red-50/50 to-transparent dark:from-red-900/20';
+        case 'medium':
+            return 'border-l-4 border-l-amber-500 bg-gradient-to-r from-amber-50/50 to-transparent dark:from-amber-900/20';
+        case 'low':
+            return 'border-l-4 border-l-green-500 bg-gradient-to-r from-green-50/50 to-transparent dark:from-green-900/20';
+        default:
+            return 'border-l-4 border-l-gray-500 bg-gradient-to-r from-gray-50/50 to-transparent dark:from-gray-900/20';
+    }
+}
+
+// TaskCard component
+function TaskCard({ task, onStatusChange }: { task: Task; onStatusChange: (taskId: number, status: string) => void }) {
+    return (
+        <div
+            className={`group mb-4 cursor-pointer rounded-xl border border-gray-200 p-4 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl dark:border-gray-700 dark:bg-gray-800 ${getPriorityColor(task.priority)}`}
+        >
+            <Link href={`/tasks/${task.id}`} className="block">
+                <h3 className="mb-2 text-lg font-bold text-gray-900 transition-colors hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:bg-clip-text hover:text-transparent dark:text-white">
+                    {task.title}
+                </h3>
+
+                {task.description && (
+                    <p className="mb-3 line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
+                        {task.description}
+                    </p>
+                )}
+
+                <div className="space-y-2">
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        {task.category && (
+                            <div className="flex items-center gap-1">
+                                <Folder className="size-3" style={{ color: task.category.color }} />
+                                <span style={{ color: task.category.color }}>{task.category.name}</span>
+                            </div>
+                        )}
+                        {task.due_date && (
+                            <div className="flex items-center gap-1">
+                                <Calendar className="size-3" />
+                                <span>{new Date(task.due_date).toLocaleDateString()}</span>
+                            </div>
+                        )}
+                        {task.estimated_minutes && (
+                            <div className="flex items-center gap-1">
+                                <Clock className="size-3" />
+                                <span>{task.estimated_minutes}m</span>
+                            </div>
+                        )}
+                    </div>
+
+                    {task.tags && task.tags.length > 0 && (
+                        <div className="flex items-center gap-1">
+                            <TagIcon className="size-3 text-gray-400" />
+                            <div className="flex flex-wrap gap-1">
+                                {task.tags.map((tag) => (
+                                    <span
+                                        key={tag.id}
+                                        className="rounded-full px-2 py-0.5 text-xs"
+                                        style={{
+                                            backgroundColor: tag.color + '20',
+                                            color: tag.color,
+                                        }}
+                                    >
+                                        {tag.name}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {task.subtasks && task.subtasks.length > 0 && (
+                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                            <CheckCircle2 className="size-3" />
+                            <span>
+                                {task.subtasks.filter((st) => st.is_completed).length}/{task.subtasks.length} subtasks
+                            </span>
+                        </div>
+                    )}
+
+                    <div>
+                        <span
+                            className={`inline-block rounded-lg px-3 py-1 text-xs font-bold tracking-wide text-white uppercase shadow-sm ${
+                                task.priority === 'high'
+                                    ? 'bg-gradient-to-r from-red-500 to-rose-500'
+                                    : task.priority === 'medium'
+                                      ? 'bg-gradient-to-r from-amber-500 to-orange-500'
+                                      : 'bg-gradient-to-r from-green-500 to-emerald-500'
+                            }`}
+                        >
+                            {task.priority}
+                        </span>
+                    </div>
+                </div>
+            </Link>
+
+            <div className="mt-3 hidden border-t border-gray-200 pt-3 opacity-0 transition-all group-hover:block group-hover:opacity-100 dark:border-gray-700">
+                <div className="flex gap-2 text-xs">
+                    {task.status !== 'pending' && (
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                onStatusChange(task.id, 'pending');
+                            }}
+                            className="rounded-lg bg-gradient-to-r from-gray-100 to-gray-200 px-3 py-1.5 font-semibold text-gray-700 shadow-sm transition-all hover:scale-105 hover:shadow-md dark:from-gray-700 dark:to-gray-600 dark:text-gray-200"
+                        >
+                            → Pending
+                        </button>
+                    )}
+                    {task.status !== 'in_progress' && (
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                onStatusChange(task.id, 'in_progress');
+                            }}
+                            className="rounded-lg bg-gradient-to-r from-blue-500 to-indigo-500 px-3 py-1.5 font-semibold text-white shadow-sm transition-all hover:scale-105 hover:shadow-md"
+                        >
+                            → In Progress
+                        </button>
+                    )}
+                    {task.status !== 'completed' && (
+                        <button
+                            onClick={(e) => {
+                                e.preventDefault();
+                                onStatusChange(task.id, 'completed');
+                            }}
+                            className="rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 px-3 py-1.5 font-semibold text-white shadow-sm transition-all hover:scale-105 hover:shadow-md"
+                        >
+                            → Completed
+                        </button>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+// Column component defined outside to avoid re-creation on every render
+function Column({
+    title,
+    tasks,
+    color,
+    icon: Icon,
+    onStatusChange,
+}: {
+    title: string;
+    tasks: Task[];
+    color: string;
+    icon: LucideIcon;
+    onStatusChange: (taskId: number, status: string) => void;
+}) {
+    return (
+        <div className="flex min-h-[700px] flex-1 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50/50 shadow-xl dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
+            <div className={`flex items-center gap-3 p-5 ${color}`}>
+                <div className="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
+                    <Icon className="size-6 text-white" />
+                </div>
+                <h2 className="text-xl font-bold text-white">{title}</h2>
+                <span className="ml-auto rounded-full bg-white/30 px-3 py-1 text-sm font-bold text-white shadow-md backdrop-blur-sm">
+                    {tasks.length}
+                </span>
+            </div>
+            <div className="flex-1 overflow-y-auto p-4">
+                {tasks.length === 0 ? (
+                    <div className="flex h-full flex-col items-center justify-center text-center">
+                        <div className="mb-3 rounded-full bg-gray-100 p-4 dark:bg-gray-800">
+                            <Icon className="size-8 text-gray-400" />
+                        </div>
+                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            No tasks yet
+                        </p>
+                        <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                            Tasks will appear here
+                        </p>
+                    </div>
+                ) : (
+                    <div>
+                        {tasks.map((task) => (
+                            <TaskCard key={task.id} task={task} onStatusChange={onStatusChange} />
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }

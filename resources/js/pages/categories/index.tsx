@@ -19,7 +19,7 @@ import { useState } from 'react';
 
 interface CategoriesPageProps {
     categories: (Category & { tasks_count?: number })[];
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 export default function CategoriesIndex() {
