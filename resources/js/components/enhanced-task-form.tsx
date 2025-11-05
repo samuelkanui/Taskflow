@@ -32,7 +32,7 @@ export default function EnhancedTaskForm({
     onCancel,
 }: TaskFormProps) {
     const [subtasks, setSubtasks] = useState<SubtaskItem[]>(
-        task?.subtasks?.map((st, idx) => ({
+        task?.subtasks?.map((st) => ({
             id: st.id,
             title: st.title,
             order: st.order,
@@ -65,7 +65,7 @@ export default function EnhancedTaskForm({
         e.preventDefault();
 
         // Update form data with subtasks before submitting
-        setData('subtasks', subtasks as any);
+        setData('subtasks', subtasks);
 
         if (task) {
             put(`/tasks/${task.id}`, {
@@ -178,7 +178,7 @@ export default function EnhancedTaskForm({
                                 id="priority"
                                 value={data.priority}
                                 onChange={(e) =>
-                                    setData('priority', e.target.value as any)
+                                    setData('priority', e.target.value as 'low' | 'medium' | 'high')
                                 }
                                 className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                 required
@@ -197,7 +197,7 @@ export default function EnhancedTaskForm({
                                 id="status"
                                 value={data.status}
                                 onChange={(e) =>
-                                    setData('status', e.target.value as any)
+                                    setData('status', e.target.value as 'pending' | 'in_progress' | 'completed')
                                 }
                                 className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                 required
@@ -356,7 +356,7 @@ export default function EnhancedTaskForm({
                                             onChange={(e) =>
                                                 setData(
                                                     'recurrence_type',
-                                                    e.target.value as any,
+                                                    e.target.value as 'daily' | 'weekly' | 'monthly' | 'yearly',
                                                 )
                                             }
                                             className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
