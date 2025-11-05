@@ -9,7 +9,7 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head, Link } from '@inertiajs/react';
-import { CheckSquare, ArrowLeft, Sparkles } from 'lucide-react';
+import { CheckSquare, ArrowLeft } from 'lucide-react';
 
 interface LoginProps {
     status?: string;

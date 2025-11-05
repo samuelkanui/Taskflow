@@ -1,7 +1,7 @@
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { CheckCircle, Target, BarChart3, Calendar, ArrowRight, Sparkles, CheckSquare, Zap } from 'lucide-react';
+import { CheckCircle, Target, BarChart3, Calendar, ArrowRight, Sparkles, CheckSquare } from 'lucide-react';
 
 export default function Welcome({
     canRegister = true,
