@@ -20,10 +20,10 @@ export default function Welcome({
                 <div 
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: 'url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=2072&auto=format&fit=crop)',
+                        backgroundImage: 'url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=100&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3)',
                     }}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-gray-900/90 to-indigo-900/90"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/65 to-indigo-900/70"></div>
                 </div>
 
                 {/* Navigation */}
