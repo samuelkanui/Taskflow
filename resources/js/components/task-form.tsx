@@ -15,7 +15,13 @@ interface TaskFormProps {
     onCancel?: () => void;
 }
 
-export default function TaskForm({ task, categories, tags, goals, onCancel }: TaskFormProps) {
+export default function TaskForm({
+    task,
+    categories,
+    tags,
+    goals,
+    onCancel,
+}: TaskFormProps) {
     const { data, setData, post, put, processing, errors } = useForm({
         title: task?.title || '',
         description: task?.description || '',
@@ -27,7 +33,7 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
         due_date: task?.due_date || '',
         due_time: task?.due_time || '',
         estimated_minutes: task?.estimated_minutes || '',
-        tags: task?.tags?.map(t => t.id) || [],
+        tags: task?.tags?.map((t) => t.id) || [],
     });
 
     const submit: FormEventHandler = (e) => {
@@ -46,7 +52,10 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
 
     const toggleTag = (tagId: number) => {
         if (data.tags.includes(tagId)) {
-            setData('tags', data.tags.filter(id => id !== tagId));
+            setData(
+                'tags',
+                data.tags.filter((id) => id !== tagId),
+            );
         } else {
             setData('tags', [...data.tags, tagId]);
         }
@@ -68,7 +77,9 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                     placeholder="Enter task title"
                     required
                 />
-                {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title}</p>}
+                {errors.title && (
+                    <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+                )}
             </div>
 
             {/* Description */}
@@ -82,7 +93,11 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                     placeholder="Describe your task"
                     rows={3}
                 />
-                {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description}</p>}
+                {errors.description && (
+                    <p className="mt-1 text-sm text-red-600">
+                        {errors.description}
+                    </p>
+                )}
             </div>
 
             {/* Priority & Status */}
@@ -95,14 +110,18 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                         id="priority"
                         value={data.priority}
                         onChange={(e) => setData('priority', e.target.value)}
-                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         required
                     >
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
                     </select>
-                    {errors.priority && <p className="mt-1 text-sm text-red-600">{errors.priority}</p>}
+                    {errors.priority && (
+                        <p className="mt-1 text-sm text-red-600">
+                            {errors.priority}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -113,14 +132,18 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                         id="status"
                         value={data.status}
                         onChange={(e) => setData('status', e.target.value)}
-                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                         required
                     >
                         <option value="pending">Pending</option>
                         <option value="in_progress">In Progress</option>
                         <option value="completed">Completed</option>
                     </select>
-                    {errors.status && <p className="mt-1 text-sm text-red-600">{errors.status}</p>}
+                    {errors.status && (
+                        <p className="mt-1 text-sm text-red-600">
+                            {errors.status}
+                        </p>
+                    )}
                 </div>
             </div>
 
@@ -132,7 +155,7 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                         id="category_id"
                         value={data.category_id}
                         onChange={(e) => setData('category_id', e.target.value)}
-                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                     >
                         <option value="">None</option>
                         {categories.map((category) => (
@@ -141,7 +164,11 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                             </option>
                         ))}
                     </select>
-                    {errors.category_id && <p className="mt-1 text-sm text-red-600">{errors.category_id}</p>}
+                    {errors.category_id && (
+                        <p className="mt-1 text-sm text-red-600">
+                            {errors.category_id}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -150,7 +177,7 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                         id="goal_id"
                         value={data.goal_id}
                         onChange={(e) => setData('goal_id', e.target.value)}
-                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                        className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                     >
                         <option value="">None</option>
                         {goals.map((goal) => (
@@ -159,7 +186,11 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                             </option>
                         ))}
                     </select>
-                    {errors.goal_id && <p className="mt-1 text-sm text-red-600">{errors.goal_id}</p>}
+                    {errors.goal_id && (
+                        <p className="mt-1 text-sm text-red-600">
+                            {errors.goal_id}
+                        </p>
+                    )}
                 </div>
             </div>
 
@@ -172,11 +203,17 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                             id="due_date"
                             type="date"
                             value={data.due_date}
-                            onChange={(e) => setData('due_date', e.target.value)}
+                            onChange={(e) =>
+                                setData('due_date', e.target.value)
+                            }
                         />
-                        <Calendar className="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
+                        <Calendar className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-gray-400" />
                     </div>
-                    {errors.due_date && <p className="mt-1 text-sm text-red-600">{errors.due_date}</p>}
+                    {errors.due_date && (
+                        <p className="mt-1 text-sm text-red-600">
+                            {errors.due_date}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -188,23 +225,35 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                         onChange={(e) => setData('due_time', e.target.value)}
                         className="mt-1"
                     />
-                    {errors.due_time && <p className="mt-1 text-sm text-red-600">{errors.due_time}</p>}
+                    {errors.due_time && (
+                        <p className="mt-1 text-sm text-red-600">
+                            {errors.due_time}
+                        </p>
+                    )}
                 </div>
             </div>
 
             {/* Estimated Time */}
             <div>
-                <Label htmlFor="estimated_minutes">Estimated Time (minutes)</Label>
+                <Label htmlFor="estimated_minutes">
+                    Estimated Time (minutes)
+                </Label>
                 <Input
                     id="estimated_minutes"
                     type="number"
                     min="0"
                     value={data.estimated_minutes}
-                    onChange={(e) => setData('estimated_minutes', e.target.value)}
+                    onChange={(e) =>
+                        setData('estimated_minutes', e.target.value)
+                    }
                     className="mt-1"
                     placeholder="e.g., 60"
                 />
-                {errors.estimated_minutes && <p className="mt-1 text-sm text-red-600">{errors.estimated_minutes}</p>}
+                {errors.estimated_minutes && (
+                    <p className="mt-1 text-sm text-red-600">
+                        {errors.estimated_minutes}
+                    </p>
+                )}
             </div>
 
             {/* Tags */}
@@ -228,14 +277,20 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                             }}
                         >
                             {tag.name}
-                            {data.tags.includes(tag.id) && <X className="size-3" />}
+                            {data.tags.includes(tag.id) && (
+                                <X className="size-3" />
+                            )}
                         </button>
                     ))}
                     {tags.length === 0 && (
-                        <p className="text-sm text-gray-500">No tags available. Create tags first.</p>
+                        <p className="text-sm text-gray-500">
+                            No tags available. Create tags first.
+                        </p>
                     )}
                 </div>
-                {errors.tags && <p className="mt-1 text-sm text-red-600">{errors.tags}</p>}
+                {errors.tags && (
+                    <p className="mt-1 text-sm text-red-600">{errors.tags}</p>
+                )}
             </div>
 
             {/* Notes */}
@@ -249,7 +304,9 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                     placeholder="Additional notes or comments"
                     rows={4}
                 />
-                {errors.notes && <p className="mt-1 text-sm text-red-600">{errors.notes}</p>}
+                {errors.notes && (
+                    <p className="mt-1 text-sm text-red-600">{errors.notes}</p>
+                )}
             </div>
 
             {/* Actions */}
@@ -260,7 +317,11 @@ export default function TaskForm({ task, categories, tags, goals, onCancel }: Ta
                     </Button>
                 )}
                 <Button type="submit" disabled={processing}>
-                    {processing ? 'Saving...' : task ? 'Update Task' : 'Create Task'}
+                    {processing
+                        ? 'Saving...'
+                        : task
+                          ? 'Update Task'
+                          : 'Create Task'}
                 </Button>
             </div>
         </form>

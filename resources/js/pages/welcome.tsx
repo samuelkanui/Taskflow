@@ -1,7 +1,15 @@
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { CheckCircle, Target, BarChart3, Calendar, ArrowRight, Sparkles, CheckSquare } from 'lucide-react';
+import {
+    ArrowRight,
+    BarChart3,
+    Calendar,
+    CheckCircle,
+    CheckSquare,
+    Sparkles,
+    Target,
+} from 'lucide-react';
 
 export default function Welcome({
     canRegister = true,
@@ -13,14 +21,15 @@ export default function Welcome({
     return (
         <>
             <Head title="Task Management System - Organize Your Work" />
-            
+
             {/* Modern Landing Page */}
             <div className="relative min-h-screen overflow-hidden bg-gray-900">
                 {/* Background Image with Overlay */}
-                <div 
+                <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: 'url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=100&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3)',
+                        backgroundImage:
+                            'url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=100&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3)',
                     }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/65 to-indigo-900/70"></div>
@@ -35,7 +44,9 @@ export default function Welcome({
                                 <div className="rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 p-2 shadow-lg">
                                     <CheckSquare className="size-6 text-white" />
                                 </div>
-                                <span className="text-2xl font-bold text-white">TaskFlow</span>
+                                <span className="text-2xl font-bold text-white">
+                                    TaskFlow
+                                </span>
                             </div>
 
                             {/* Nav Links */}
@@ -79,11 +90,13 @@ export default function Welcome({
                             {/* Badge */}
                             <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-indigo-300 backdrop-blur-sm">
                                 <Sparkles className="size-4" />
-                                <span className="text-sm font-semibold">Professional Task Management</span>
+                                <span className="text-sm font-semibold">
+                                    Professional Task Management
+                                </span>
                             </div>
 
                             {/* Main Heading */}
-                            <h1 className="mb-6 text-5xl font-black leading-tight text-white md:text-6xl lg:text-7xl">
+                            <h1 className="mb-6 text-5xl leading-tight font-black text-white md:text-6xl lg:text-7xl">
                                 Organize Your Work.
                                 <br />
                                 <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -93,7 +106,8 @@ export default function Welcome({
 
                             {/* Subheading */}
                             <p className="mb-12 text-xl text-gray-300 md:text-2xl">
-                                A powerful, intuitive task management system to help you
+                                A powerful, intuitive task management system to
+                                help you
                                 <br className="hidden md:block" />
                                 stay productive and reach your goals faster.
                             </p>
@@ -120,22 +134,30 @@ export default function Welcome({
                             {/* Features Grid */}
                             <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                                 <FeatureCard
-                                    icon={<CheckCircle className="size-8 text-green-400" />}
+                                    icon={
+                                        <CheckCircle className="size-8 text-green-400" />
+                                    }
                                     title="Task Management"
                                     description="Create, organize, and track tasks with ease"
                                 />
                                 <FeatureCard
-                                    icon={<Calendar className="size-8 text-blue-400" />}
+                                    icon={
+                                        <Calendar className="size-8 text-blue-400" />
+                                    }
                                     title="Calendar & Kanban"
                                     description="Visual views to manage your workflow"
                                 />
                                 <FeatureCard
-                                    icon={<Target className="size-8 text-purple-400" />}
+                                    icon={
+                                        <Target className="size-8 text-purple-400" />
+                                    }
                                     title="Goal Tracking"
                                     description="Set goals and monitor your progress"
                                 />
                                 <FeatureCard
-                                    icon={<BarChart3 className="size-8 text-orange-400" />}
+                                    icon={
+                                        <BarChart3 className="size-8 text-orange-400" />
+                                    }
                                     title="Analytics"
                                     description="Insights into your productivity"
                                 />
@@ -149,7 +171,8 @@ export default function Welcome({
                     <div className="mx-auto max-w-7xl px-6 py-6 text-center">
                         <p className="text-sm text-gray-400">
                             © 2025 TaskFlow. Built with{' '}
-                            <span className="text-red-400">♥</span> for productivity enthusiasts.
+                            <span className="text-red-400">♥</span> for
+                            productivity enthusiasts.
                         </p>
                     </div>
                 </div>
@@ -159,7 +182,15 @@ export default function Welcome({
 }
 
 // Feature Card Component
-function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
+function FeatureCard({
+    icon,
+    title,
+    description,
+}: {
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+}) {
     return (
         <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:-translate-y-2 hover:border-white/20 hover:bg-white/10 hover:shadow-xl">
             <div className="mb-4 inline-flex rounded-lg bg-white/10 p-3 transition-all group-hover:scale-110 group-hover:bg-white/20">

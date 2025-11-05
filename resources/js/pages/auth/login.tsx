@@ -9,7 +9,7 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head, Link } from '@inertiajs/react';
-import { CheckSquare, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CheckSquare } from 'lucide-react';
 
 interface LoginProps {
     status?: string;
@@ -25,13 +25,14 @@ export default function Login({
     return (
         <>
             <Head title="Log in - TaskFlow" />
-            
+
             <div className="relative min-h-screen overflow-hidden bg-gray-900">
                 {/* Background Image with Overlay */}
-                <div 
+                <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                        backgroundImage: 'url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=100&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3)',
+                        backgroundImage:
+                            'url(https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=100&w=2400&auto=format&fit=crop&ixlib=rb-4.0.3)',
                     }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/65 to-indigo-900/70"></div>
@@ -53,11 +54,16 @@ export default function Login({
                     <div className="w-full max-w-md">
                         {/* Logo */}
                         <div className="mb-8 text-center">
-                            <Link href="/" className="inline-flex items-center gap-2">
+                            <Link
+                                href="/"
+                                className="inline-flex items-center gap-2"
+                            >
                                 <div className="rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 p-2 shadow-lg">
                                     <CheckSquare className="size-8 text-white" />
                                 </div>
-                                <span className="text-3xl font-bold text-white">TaskFlow</span>
+                                <span className="text-3xl font-bold text-white">
+                                    TaskFlow
+                                </span>
                             </Link>
                         </div>
 
@@ -65,12 +71,16 @@ export default function Login({
                         <div className="rounded-2xl border border-white/10 bg-white/10 p-8 shadow-2xl backdrop-blur-md">
                             {/* Header */}
                             <div className="mb-6 text-center">
-                                <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
-                                <p className="mt-2 text-gray-300">Log in to continue to your dashboard</p>
+                                <h1 className="text-3xl font-bold text-white">
+                                    Welcome Back
+                                </h1>
+                                <p className="mt-2 text-gray-300">
+                                    Log in to continue to your dashboard
+                                </p>
                             </div>
 
                             {status && (
-                                <div className="mb-4 rounded-lg bg-green-500/20 border border-green-500/30 p-3 text-center text-sm font-medium text-green-300">
+                                <div className="mb-4 rounded-lg border border-green-500/30 bg-green-500/20 p-3 text-center text-sm font-medium text-green-300">
                                     {status}
                                 </div>
                             )}
@@ -80,11 +90,16 @@ export default function Login({
                                 resetOnSuccess={['password']}
                                 className="space-y-4"
                             >
-                                {({ processing, errors}) => (
+                                {({ processing, errors }) => (
                                     <>
                                         <div className="space-y-4">
                                             <div>
-                                                <Label htmlFor="email" className="text-white">Email address</Label>
+                                                <Label
+                                                    htmlFor="email"
+                                                    className="text-white"
+                                                >
+                                                    Email address
+                                                </Label>
                                                 <Input
                                                     id="email"
                                                     type="email"
@@ -96,12 +111,20 @@ export default function Login({
                                                     placeholder="email@example.com"
                                                     className="mt-1 border-white/20 bg-white/10 text-white placeholder:text-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
                                                 />
-                                                <InputError message={errors.email} className="text-red-300" />
+                                                <InputError
+                                                    message={errors.email}
+                                                    className="text-red-300"
+                                                />
                                             </div>
 
                                             <div>
                                                 <div className="flex items-center justify-between">
-                                                    <Label htmlFor="password" className="text-white">Password</Label>
+                                                    <Label
+                                                        htmlFor="password"
+                                                        className="text-white"
+                                                    >
+                                                        Password
+                                                    </Label>
                                                     {canResetPassword && (
                                                         <TextLink
                                                             href={request()}
@@ -122,7 +145,10 @@ export default function Login({
                                                     placeholder="Enter your password"
                                                     className="mt-1 border-white/20 bg-white/10 text-white placeholder:text-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
                                                 />
-                                                <InputError message={errors.password} className="text-red-300" />
+                                                <InputError
+                                                    message={errors.password}
+                                                    className="text-red-300"
+                                                />
                                             </div>
 
                                             <div className="flex items-center space-x-3">
@@ -132,7 +158,12 @@ export default function Login({
                                                     tabIndex={3}
                                                     className="border-white/30 data-[state=checked]:bg-indigo-600"
                                                 />
-                                                <Label htmlFor="remember" className="text-white">Remember me</Label>
+                                                <Label
+                                                    htmlFor="remember"
+                                                    className="text-white"
+                                                >
+                                                    Remember me
+                                                </Label>
                                             </div>
 
                                             <Button
@@ -143,14 +174,19 @@ export default function Login({
                                                 data-test="login-button"
                                             >
                                                 {processing && <Spinner />}
-                                                {processing ? 'Logging in...' : 'Log in'}
+                                                {processing
+                                                    ? 'Logging in...'
+                                                    : 'Log in'}
                                             </Button>
                                         </div>
 
                                         {canRegister && (
                                             <div className="mt-6 text-center text-sm text-gray-300">
                                                 Don't have an account?{' '}
-                                                <Link href={register()} className="font-semibold text-indigo-300 hover:text-indigo-200">
+                                                <Link
+                                                    href={register()}
+                                                    className="font-semibold text-indigo-300 hover:text-indigo-200"
+                                                >
                                                     Sign up
                                                 </Link>
                                             </div>

@@ -1,5 +1,5 @@
-import AppLayout from '@/layouts/app-layout';
 import EnhancedTaskForm from '@/components/enhanced-task-form';
+import AppLayout from '@/layouts/app-layout';
 import { Category, Goal, Tag, Task } from '@/types/models';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ArrowLeft, Edit, Sparkles } from 'lucide-react';
@@ -14,14 +14,15 @@ interface EditTaskPageProps {
 }
 
 export default function EditTask() {
-    const { task, categories, tags, goals, allTasks } = usePage<EditTaskPageProps>().props;
+    const { task, categories, tags, goals, allTasks } =
+        usePage<EditTaskPageProps>().props;
 
     return (
         <AppLayout>
             <Head title={`Edit ${task.title}`} />
 
             <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-                <div className="mx-auto max-w-[95%] 2xl:max-w-[1600px] space-y-8 p-6 lg:p-8">
+                <div className="mx-auto max-w-[95%] space-y-8 p-6 lg:p-8 2xl:max-w-[1600px]">
                     {/* Back Button */}
                     <Link
                         href="/tasks"
@@ -51,15 +52,21 @@ export default function EditTask() {
                             </div>
                         </div>
                         {/* Decorative elements */}
-                        <div className="absolute -right-20 -top-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
+                        <div className="absolute -top-20 -right-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
                         <div className="absolute -bottom-20 -left-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
                     </div>
 
                     {/* Enhanced Form Container */}
-                    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-2xl dark:border-gray-700 dark:bg-gray-800 lg:p-10">
-                        <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-teal-500/5 to-transparent"></div>
+                    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-2xl lg:p-10 dark:border-gray-700 dark:bg-gray-800">
+                        <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-teal-500/5 to-transparent"></div>
                         <div className="relative">
-                            <EnhancedTaskForm task={task} categories={categories} tags={tags} goals={goals} allTasks={allTasks} />
+                            <EnhancedTaskForm
+                                task={task}
+                                categories={categories}
+                                tags={tags}
+                                goals={goals}
+                                allTasks={allTasks}
+                            />
                         </div>
                     </div>
                 </div>

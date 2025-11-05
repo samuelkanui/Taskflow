@@ -1,9 +1,24 @@
-import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
-import { Subtask, Task, TaskAttachment } from '@/types/models';
-import { Head, Link, router } from '@inertiajs/react';
-import { ArrowLeft, Calendar, CheckCircle2, Circle, Clock, Download, Edit, File, FileText, Folder, Paperclip, Tag as TagIcon, Target, Trash2, Upload, X } from 'lucide-react';
-import { usePage } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
+import { Subtask, Task } from '@/types/models';
+import { Head, Link, router, usePage } from '@inertiajs/react';
+import {
+    ArrowLeft,
+    Calendar,
+    CheckCircle2,
+    Circle,
+    Clock,
+    Download,
+    Edit,
+    File,
+    FileText,
+    Folder,
+    Paperclip,
+    Tag as TagIcon,
+    Target,
+    Trash2,
+    Upload,
+} from 'lucide-react';
 import { useState } from 'react';
 
 interface TaskShowProps {
@@ -28,9 +43,13 @@ export default function TaskShow() {
     };
 
     const toggleComplete = () => {
-        router.post(`/tasks/${task.id}/toggle-complete`, {}, {
-            preserveScroll: true,
-        });
+        router.post(
+            `/tasks/${task.id}/toggle-complete`,
+            {},
+            {
+                preserveScroll: true,
+            },
+        );
     };
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,15 +79,21 @@ export default function TaskShow() {
         const k = 1024;
         const sizes = ['Bytes', 'KB', 'MB', 'GB'];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        return (
+            Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i]
+        );
     };
 
     const extendDueDate = (days: number) => {
-        router.post(`/tasks/${task.id}/extend-due-date`, {
-            days: days,
-        }, {
-            preserveScroll: true,
-        });
+        router.post(
+            `/tasks/${task.id}/extend-due-date`,
+            {
+                days: days,
+            },
+            {
+                preserveScroll: true,
+            },
+        );
     };
 
     const saveAsTemplate = () => {
@@ -136,11 +161,22 @@ export default function TaskShow() {
                                     {task.title}
                                 </h1>
                                 <div className="mt-3 flex flex-wrap gap-2">
-                                    <span className={`rounded-full px-3 py-1 text-sm font-medium ${getPriorityColor(task.priority)}`}>
-                                        {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)} Priority
+                                    <span
+                                        className={`rounded-full px-3 py-1 text-sm font-medium ${getPriorityColor(task.priority)}`}
+                                    >
+                                        {task.priority.charAt(0).toUpperCase() +
+                                            task.priority.slice(1)}{' '}
+                                        Priority
                                     </span>
-                                    <span className={`rounded-full px-3 py-1 text-sm font-medium ${getStatusColor(task.status)}`}>
-                                        {task.status === 'in_progress' ? 'In Progress' : task.status.charAt(0).toUpperCase() + task.status.slice(1)}
+                                    <span
+                                        className={`rounded-full px-3 py-1 text-sm font-medium ${getStatusColor(task.status)}`}
+                                    >
+                                        {task.status === 'in_progress'
+                                            ? 'In Progress'
+                                            : task.status
+                                                  .charAt(0)
+                                                  .toUpperCase() +
+                                              task.status.slice(1)}
                                     </span>
                                 </div>
                             </div>
@@ -152,11 +188,19 @@ export default function TaskShow() {
                                     Edit
                                 </Button>
                             </Link>
-                            <Button variant="outline" size="sm" onClick={saveAsTemplate}>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={saveAsTemplate}
+                            >
                                 <FileText className="mr-2 size-4" />
                                 Save as Template
                             </Button>
-                            <Button variant="outline" size="sm" onClick={deleteTask}>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={deleteTask}
+                            >
                                 <Trash2 className="mr-2 size-4" />
                                 Delete
                             </Button>
@@ -195,7 +239,13 @@ export default function TaskShow() {
                         {task.subtasks && task.subtasks.length > 0 && (
                             <div className="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
                                 <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
-                                    Subtasks ({task.subtasks.filter(st => st.is_completed).length}/{task.subtasks.length})
+                                    Subtasks (
+                                    {
+                                        task.subtasks.filter(
+                                            (st) => st.is_completed,
+                                        ).length
+                                    }
+                                    /{task.subtasks.length})
                                 </h2>
                                 <div className="space-y-2">
                                     {task.subtasks.map((subtask) => (
@@ -208,7 +258,9 @@ export default function TaskShow() {
                                             ) : (
                                                 <Circle className="size-5 text-gray-400" />
                                             )}
-                                            <span className={`flex-1 ${subtask.is_completed ? 'text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}>
+                                            <span
+                                                className={`flex-1 ${subtask.is_completed ? 'text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}
+                                            >
                                                 {subtask.title}
                                             </span>
                                         </div>
@@ -247,7 +299,8 @@ export default function TaskShow() {
                             <div className="mb-4 flex items-center justify-between">
                                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
                                     <Paperclip className="mr-2 inline-block size-5" />
-                                    Attachments ({task.attachments?.length || 0})
+                                    Attachments ({task.attachments?.length || 0}
+                                    )
                                 </h2>
                                 <label className="cursor-pointer">
                                     <input
@@ -258,7 +311,9 @@ export default function TaskShow() {
                                     />
                                     <div className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50">
                                         <Upload className="size-4" />
-                                        {uploading ? 'Uploading...' : 'Upload File'}
+                                        {uploading
+                                            ? 'Uploading...'
+                                            : 'Upload File'}
                                     </div>
                                 </label>
                             </div>
@@ -276,7 +331,13 @@ export default function TaskShow() {
                                                     {attachment.filename}
                                                 </p>
                                                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                    {formatFileSize(attachment.file_size)} • {new Date(attachment.created_at).toLocaleDateString()}
+                                                    {formatFileSize(
+                                                        attachment.file_size,
+                                                    )}{' '}
+                                                    •{' '}
+                                                    {new Date(
+                                                        attachment.created_at,
+                                                    ).toLocaleDateString()}
                                                 </p>
                                             </div>
                                             <div className="flex gap-2">
@@ -287,7 +348,11 @@ export default function TaskShow() {
                                                     <Download className="size-4 text-gray-600 dark:text-gray-400" />
                                                 </a>
                                                 <button
-                                                    onClick={() => deleteAttachment(attachment.id)}
+                                                    onClick={() =>
+                                                        deleteAttachment(
+                                                            attachment.id,
+                                                        )
+                                                    }
                                                     className="rounded p-2 hover:bg-red-50 dark:hover:bg-red-900/20"
                                                 >
                                                     <Trash2 className="size-4 text-red-600" />
@@ -298,7 +363,8 @@ export default function TaskShow() {
                                 </div>
                             ) : (
                                 <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-                                    No files attached yet. Upload your first file!
+                                    No files attached yet. Upload your first
+                                    file!
                                 </p>
                             )}
                         </div>
@@ -315,9 +381,16 @@ export default function TaskShow() {
                                 {/* Category */}
                                 {task.category && (
                                     <div className="flex items-center gap-3">
-                                        <Folder className="size-5 text-gray-400" style={{ color: task.category.color }} />
+                                        <Folder
+                                            className="size-5 text-gray-400"
+                                            style={{
+                                                color: task.category.color,
+                                            }}
+                                        />
                                         <div>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">Category</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                Category
+                                            </p>
                                             <p className="font-medium text-gray-900 dark:text-white">
                                                 {task.category.name}
                                             </p>
@@ -330,7 +403,9 @@ export default function TaskShow() {
                                     <div className="flex items-center gap-3">
                                         <Target className="size-5 text-gray-400" />
                                         <div>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">Goal</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                Goal
+                                            </p>
                                             <Link
                                                 href={`/goals/${task.goal.id}`}
                                                 className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
@@ -347,29 +422,40 @@ export default function TaskShow() {
                                         <div className="flex items-center gap-3">
                                             <Calendar className="size-5 text-gray-400" />
                                             <div>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">Due Date</p>
+                                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                    Due Date
+                                                </p>
                                                 <p className="font-medium text-gray-900 dark:text-white">
-                                                    {new Date(task.due_date).toLocaleDateString()}
-                                                    {task.due_time && ` at ${task.due_time}`}
+                                                    {new Date(
+                                                        task.due_date,
+                                                    ).toLocaleDateString()}
+                                                    {task.due_time &&
+                                                        ` at ${task.due_time}`}
                                                 </p>
                                             </div>
                                         </div>
                                         {task.status !== 'completed' && (
-                                            <div className="ml-8 mt-2 flex gap-2">
+                                            <div className="mt-2 ml-8 flex gap-2">
                                                 <button
-                                                    onClick={() => extendDueDate(1)}
+                                                    onClick={() =>
+                                                        extendDueDate(1)
+                                                    }
                                                     className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                                                 >
                                                     +1 day
                                                 </button>
                                                 <button
-                                                    onClick={() => extendDueDate(3)}
+                                                    onClick={() =>
+                                                        extendDueDate(3)
+                                                    }
                                                     className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                                                 >
                                                     +3 days
                                                 </button>
                                                 <button
-                                                    onClick={() => extendDueDate(7)}
+                                                    onClick={() =>
+                                                        extendDueDate(7)
+                                                    }
                                                     className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                                                 >
                                                     +1 week
@@ -384,7 +470,9 @@ export default function TaskShow() {
                                     <div className="flex items-center gap-3">
                                         <Clock className="size-5 text-gray-400" />
                                         <div>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">Estimated Time</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                Estimated Time
+                                            </p>
                                             <p className="font-medium text-gray-900 dark:text-white">
                                                 {task.estimated_minutes} minutes
                                             </p>
@@ -397,9 +485,13 @@ export default function TaskShow() {
                                     <div className="flex items-center gap-3">
                                         <CheckCircle2 className="size-5 text-green-600" />
                                         <div>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">Completed</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                Completed
+                                            </p>
                                             <p className="font-medium text-gray-900 dark:text-white">
-                                                {new Date(task.completed_at).toLocaleDateString()}
+                                                {new Date(
+                                                    task.completed_at,
+                                                ).toLocaleDateString()}
                                             </p>
                                         </div>
                                     </div>
@@ -409,9 +501,13 @@ export default function TaskShow() {
                                 <div className="flex items-center gap-3">
                                     <Calendar className="size-5 text-gray-400" />
                                     <div>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">Created</p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            Created
+                                        </p>
                                         <p className="font-medium text-gray-900 dark:text-white">
-                                            {new Date(task.created_at).toLocaleDateString()}
+                                            {new Date(
+                                                task.created_at,
+                                            ).toLocaleDateString()}
                                         </p>
                                     </div>
                                 </div>
@@ -433,7 +529,8 @@ export default function TaskShow() {
                                             key={tag.id}
                                             className="rounded-full px-3 py-1 text-sm font-medium"
                                             style={{
-                                                backgroundColor: tag.color + '20',
+                                                backgroundColor:
+                                                    tag.color + '20',
                                                 color: tag.color,
                                             }}
                                         >
@@ -452,16 +549,28 @@ export default function TaskShow() {
                                 </h2>
                                 <div className="space-y-2 text-sm">
                                     <p className="text-gray-600 dark:text-gray-400">
-                                        <span className="font-medium">Frequency:</span> {task.recurrence_type}
+                                        <span className="font-medium">
+                                            Frequency:
+                                        </span>{' '}
+                                        {task.recurrence_type}
                                     </p>
                                     {task.recurrence_interval && (
                                         <p className="text-gray-600 dark:text-gray-400">
-                                            <span className="font-medium">Interval:</span> Every {task.recurrence_interval} {task.recurrence_type}
+                                            <span className="font-medium">
+                                                Interval:
+                                            </span>{' '}
+                                            Every {task.recurrence_interval}{' '}
+                                            {task.recurrence_type}
                                         </p>
                                     )}
                                     {task.recurrence_end_date && (
                                         <p className="text-gray-600 dark:text-gray-400">
-                                            <span className="font-medium">Ends:</span> {new Date(task.recurrence_end_date).toLocaleDateString()}
+                                            <span className="font-medium">
+                                                Ends:
+                                            </span>{' '}
+                                            {new Date(
+                                                task.recurrence_end_date,
+                                            ).toLocaleDateString()}
                                         </p>
                                     )}
                                 </div>

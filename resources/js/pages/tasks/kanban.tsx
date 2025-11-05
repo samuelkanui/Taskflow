@@ -1,7 +1,19 @@
 import AppLayout from '@/layouts/app-layout';
 import { Task } from '@/types/models';
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Calendar, CheckCircle2, Clock, Folder, Plus, Tag as TagIcon, Columns3, Sparkles, Search, X, Filter } from 'lucide-react';
+import {
+    Calendar,
+    CheckCircle2,
+    Clock,
+    Columns3,
+    Filter,
+    Folder,
+    Plus,
+    Search,
+    Sparkles,
+    Tag as TagIcon,
+    X,
+} from 'lucide-react';
 import { useState } from 'react';
 
 interface KanbanPageProps {
@@ -25,23 +37,35 @@ export default function TasksKanban() {
     const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
     // Get all tasks for counting
-    const allTasks = [...tasks.pending, ...tasks.in_progress, ...tasks.completed];
+    const allTasks = [
+        ...tasks.pending,
+        ...tasks.in_progress,
+        ...tasks.completed,
+    ];
 
     // Filter tasks based on search and filters
     const filterTasks = (taskList: Task[]) => {
-        return taskList.filter(task => {
+        return taskList.filter((task) => {
             // Search filter
-            const matchesSearch = searchQuery === '' || 
+            const matchesSearch =
+                searchQuery === '' ||
                 task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                task.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                task.tags?.some(tag => tag.name.toLowerCase().includes(searchQuery.toLowerCase()));
+                task.description
+                    ?.toLowerCase()
+                    .includes(searchQuery.toLowerCase()) ||
+                task.tags?.some((tag) =>
+                    tag.name.toLowerCase().includes(searchQuery.toLowerCase()),
+                );
 
             // Priority filter
-            const matchesPriority = priorityFilter === 'all' || task.priority === priorityFilter;
+            const matchesPriority =
+                priorityFilter === 'all' || task.priority === priorityFilter;
 
             // Category filter
-            const matchesCategory = categoryFilter === 'all' || 
-                (task.category && task.category.id.toString() === categoryFilter);
+            const matchesCategory =
+                categoryFilter === 'all' ||
+                (task.category &&
+                    task.category.id.toString() === categoryFilter);
 
             return matchesSearch && matchesPriority && matchesCategory;
         });
@@ -53,14 +77,21 @@ export default function TasksKanban() {
         setCategoryFilter('all');
     };
 
-    const hasActiveFilters = searchQuery !== '' || priorityFilter !== 'all' || categoryFilter !== 'all';
+    const hasActiveFilters =
+        searchQuery !== '' ||
+        priorityFilter !== 'all' ||
+        categoryFilter !== 'all';
 
     const updateStatus = (taskId: number, newStatus: string) => {
-        router.put(`/tasks/${taskId}`, {
-            status: newStatus,
-        }, {
-            preserveScroll: true,
-        });
+        router.put(
+            `/tasks/${taskId}`,
+            {
+                status: newStatus,
+            },
+            {
+                preserveScroll: true,
+            },
+        );
     };
 
     const getPriorityColor = (priority: string) => {
@@ -96,14 +127,23 @@ export default function TasksKanban() {
                     <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                         {task.category && (
                             <div className="flex items-center gap-1">
-                                <Folder className="size-3" style={{ color: task.category.color }} />
-                                <span style={{ color: task.category.color }}>{task.category.name}</span>
+                                <Folder
+                                    className="size-3"
+                                    style={{ color: task.category.color }}
+                                />
+                                <span style={{ color: task.category.color }}>
+                                    {task.category.name}
+                                </span>
                             </div>
                         )}
                         {task.due_date && (
                             <div className="flex items-center gap-1">
                                 <Calendar className="size-3" />
-                                <span>{new Date(task.due_date).toLocaleDateString()}</span>
+                                <span>
+                                    {new Date(
+                                        task.due_date,
+                                    ).toLocaleDateString()}
+                                </span>
                             </div>
                         )}
                         {task.estimated_minutes && (
@@ -140,8 +180,12 @@ export default function TasksKanban() {
                         <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                             <CheckCircle2 className="size-3" />
                             <span>
-                                {task.subtasks.filter((st) => st.is_completed).length}/
-                                {task.subtasks.length} subtasks
+                                {
+                                    task.subtasks.filter(
+                                        (st) => st.is_completed,
+                                    ).length
+                                }
+                                /{task.subtasks.length} subtasks
                             </span>
                         </div>
                     )}
@@ -149,7 +193,7 @@ export default function TasksKanban() {
                     {/* Priority Badge */}
                     <div>
                         <span
-                            className={`inline-block rounded-lg px-3 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm ${
+                            className={`inline-block rounded-lg px-3 py-1 text-xs font-bold tracking-wide text-white uppercase shadow-sm ${
                                 task.priority === 'high'
                                     ? 'bg-gradient-to-r from-red-500 to-rose-500'
                                     : task.priority === 'medium'
@@ -204,7 +248,17 @@ export default function TasksKanban() {
         </div>
     );
 
-    const Column = ({ title, tasks, color, icon: Icon }: { title: string; tasks: Task[]; color: string; icon: any }) => (
+    const Column = ({
+        title,
+        tasks,
+        color,
+        icon: Icon,
+    }: {
+        title: string;
+        tasks: Task[];
+        color: string;
+        icon: any;
+    }) => (
         <div className="flex min-h-[700px] flex-1 flex-col overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50/50 shadow-xl dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
             <div className={`flex items-center gap-3 p-5 ${color}`}>
                 <div className="rounded-lg bg-white/20 p-2 backdrop-blur-sm">
@@ -221,8 +275,12 @@ export default function TasksKanban() {
                         <div className="mb-3 rounded-full bg-gray-100 p-4 dark:bg-gray-800">
                             <Icon className="size-8 text-gray-400" />
                         </div>
-                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">No tasks yet</p>
-                        <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">Tasks will appear here</p>
+                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            No tasks yet
+                        </p>
+                        <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                            Tasks will appear here
+                        </p>
                     </div>
                 ) : (
                     <div>
@@ -240,7 +298,7 @@ export default function TasksKanban() {
             <Head title="Kanban Board" />
 
             <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-                <div className="mx-auto max-w-[95%] 2xl:max-w-[1600px] space-y-8 p-6 lg:p-8">
+                <div className="mx-auto max-w-[95%] space-y-8 p-6 lg:p-8 2xl:max-w-[1600px]">
                     {/* Hero Header */}
                     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 p-8 shadow-2xl lg:p-12">
                         <div className="absolute inset-0 bg-black/10"></div>
@@ -256,7 +314,10 @@ export default function TasksKanban() {
                                         </h1>
                                         <p className="mt-2 flex items-center gap-2 text-lg text-white/90">
                                             <Sparkles className="size-5" />
-                                            {tasks.pending.length + tasks.in_progress.length + tasks.completed.length} tasks • Visualize your workflow
+                                            {tasks.pending.length +
+                                                tasks.in_progress.length +
+                                                tasks.completed.length}{' '}
+                                            tasks • Visualize your workflow
                                         </p>
                                     </div>
                                 </div>
@@ -269,29 +330,31 @@ export default function TasksKanban() {
                             </div>
                         </div>
                         {/* Decorative elements */}
-                        <div className="absolute -right-20 -top-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
+                        <div className="absolute -top-20 -right-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
                         <div className="absolute -bottom-20 -left-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
                     </div>
 
                     {/* Search and Filters */}
                     <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-lg dark:border-gray-700 dark:bg-gray-800">
-                        <div className="absolute right-0 top-0 h-full w-1/4 bg-gradient-to-l from-blue-500/5 to-transparent"></div>
+                        <div className="absolute top-0 right-0 h-full w-1/4 bg-gradient-to-l from-blue-500/5 to-transparent"></div>
                         <div className="relative space-y-4">
                             {/* Search Bar */}
                             <div className="flex items-center gap-3">
                                 <div className="relative flex-1">
-                                    <Search className="absolute left-3 top-1/2 size-5 -translate-y-1/2 text-gray-400" />
+                                    <Search className="absolute top-1/2 left-3 size-5 -translate-y-1/2 text-gray-400" />
                                     <input
                                         type="text"
                                         value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        onChange={(e) =>
+                                            setSearchQuery(e.target.value)
+                                        }
                                         placeholder="Search tasks by title, description, or tags..."
-                                        className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-11 pr-4 text-gray-900 transition-all focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-400"
+                                        className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pr-4 pl-11 text-gray-900 transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:focus:border-blue-400"
                                     />
                                     {searchQuery && (
                                         <button
                                             onClick={() => setSearchQuery('')}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-600 dark:hover:bg-gray-700"
+                                            className="absolute top-1/2 right-3 -translate-y-1/2 rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-600 dark:hover:bg-gray-700"
                                         >
                                             <X className="size-4" />
                                         </button>
@@ -312,18 +375,26 @@ export default function TasksKanban() {
                             <div className="flex flex-wrap items-center gap-3">
                                 <div className="flex items-center gap-2">
                                     <Filter className="size-4 text-gray-500" />
-                                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">Filters:</span>
+                                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                        Filters:
+                                    </span>
                                 </div>
-                                
+
                                 {/* Priority Filter */}
                                 <select
                                     value={priorityFilter}
-                                    onChange={(e) => setPriorityFilter(e.target.value)}
-                                    className="rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm font-medium text-gray-900 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                                    onChange={(e) =>
+                                        setPriorityFilter(e.target.value)
+                                    }
+                                    className="rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm font-medium text-gray-900 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-white"
                                 >
                                     <option value="all">All Priorities</option>
-                                    <option value="high">🔴 High Priority</option>
-                                    <option value="medium">🟠 Medium Priority</option>
+                                    <option value="high">
+                                        🔴 High Priority
+                                    </option>
+                                    <option value="medium">
+                                        🟠 Medium Priority
+                                    </option>
                                     <option value="low">🟢 Low Priority</option>
                                 </select>
 
@@ -331,36 +402,66 @@ export default function TasksKanban() {
                                 {categories && categories.length > 0 && (
                                     <select
                                         value={categoryFilter}
-                                        onChange={(e) => setCategoryFilter(e.target.value)}
-                                        className="rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm font-medium text-gray-900 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                                        onChange={(e) =>
+                                            setCategoryFilter(e.target.value)
+                                        }
+                                        className="rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm font-medium text-gray-900 transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-white"
                                     >
-                                        <option value="all">📁 All Categories</option>
+                                        <option value="all">
+                                            📁 All Categories
+                                        </option>
                                         {categories.map((category) => (
-                                            <option key={category.id} value={category.id.toString()}>
+                                            <option
+                                                key={category.id}
+                                                value={category.id.toString()}
+                                            >
                                                 📂 {category.name}
                                             </option>
                                         ))}
                                     </select>
                                 )}
-                                
+
                                 {/* Active Category Badge */}
                                 {categoryFilter !== 'all' && categories && (
-                                    <div 
+                                    <div
                                         className="flex items-center gap-2 rounded-lg px-3 py-2 shadow-sm"
-                                        style={{ 
-                                            backgroundColor: categories.find(c => c.id.toString() === categoryFilter)?.color + '20',
-                                            borderLeft: `4px solid ${categories.find(c => c.id.toString() === categoryFilter)?.color}`
+                                        style={{
+                                            backgroundColor:
+                                                categories.find(
+                                                    (c) =>
+                                                        c.id.toString() ===
+                                                        categoryFilter,
+                                                )?.color + '20',
+                                            borderLeft: `4px solid ${categories.find((c) => c.id.toString() === categoryFilter)?.color}`,
                                         }}
                                     >
-                                        <Folder 
-                                            className="size-4" 
-                                            style={{ color: categories.find(c => c.id.toString() === categoryFilter)?.color }}
+                                        <Folder
+                                            className="size-4"
+                                            style={{
+                                                color: categories.find(
+                                                    (c) =>
+                                                        c.id.toString() ===
+                                                        categoryFilter,
+                                                )?.color,
+                                            }}
                                         />
-                                        <span 
+                                        <span
                                             className="text-sm font-semibold"
-                                            style={{ color: categories.find(c => c.id.toString() === categoryFilter)?.color }}
+                                            style={{
+                                                color: categories.find(
+                                                    (c) =>
+                                                        c.id.toString() ===
+                                                        categoryFilter,
+                                                )?.color,
+                                            }}
                                         >
-                                            {categories.find(c => c.id.toString() === categoryFilter)?.name}
+                                            {
+                                                categories.find(
+                                                    (c) =>
+                                                        c.id.toString() ===
+                                                        categoryFilter,
+                                                )?.name
+                                            }
                                         </span>
                                     </div>
                                 )}
@@ -368,7 +469,11 @@ export default function TasksKanban() {
                                 {/* Results Count */}
                                 <div className="ml-auto rounded-lg bg-gradient-to-r from-blue-100 to-indigo-100 px-4 py-2 dark:from-blue-900/30 dark:to-indigo-900/30">
                                     <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
-                                        {filterTasks(allTasks).length} task{filterTasks(allTasks).length !== 1 ? 's' : ''} found
+                                        {filterTasks(allTasks).length} task
+                                        {filterTasks(allTasks).length !== 1
+                                            ? 's'
+                                            : ''}{' '}
+                                        found
                                     </span>
                                 </div>
                             </div>
@@ -400,33 +505,53 @@ export default function TasksKanban() {
                     {/* Enhanced Stats */}
                     <div className="grid gap-6 sm:grid-cols-3">
                         <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 shadow-lg dark:border-gray-700 dark:from-gray-800 dark:to-gray-900">
-                            <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-gray-500/5 to-transparent"></div>
+                            <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-gray-500/5 to-transparent"></div>
                             <div className="relative">
-                                <div className="text-sm font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-400">
-                                    {hasActiveFilters ? 'Filtered Tasks' : 'Total Tasks'}
+                                <div className="text-sm font-semibold tracking-wide text-gray-600 uppercase dark:text-gray-400">
+                                    {hasActiveFilters
+                                        ? 'Filtered Tasks'
+                                        : 'Total Tasks'}
                                 </div>
                                 <div className="mt-2 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-4xl font-black text-transparent dark:from-white dark:to-gray-300">
-                                    {filterTasks(tasks.pending).length + filterTasks(tasks.in_progress).length + filterTasks(tasks.completed).length}
+                                    {filterTasks(tasks.pending).length +
+                                        filterTasks(tasks.in_progress).length +
+                                        filterTasks(tasks.completed).length}
                                 </div>
                             </div>
                         </div>
                         <div className="relative overflow-hidden rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 shadow-lg dark:border-blue-800 dark:from-blue-900/20 dark:to-indigo-900/20">
-                            <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-blue-500/10 to-transparent"></div>
+                            <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-blue-500/10 to-transparent"></div>
                             <div className="relative">
-                                <div className="text-sm font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400">Active Tasks</div>
+                                <div className="text-sm font-semibold tracking-wide text-blue-600 uppercase dark:text-blue-400">
+                                    Active Tasks
+                                </div>
                                 <div className="mt-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-4xl font-black text-transparent">
-                                    {filterTasks(tasks.pending).length + filterTasks(tasks.in_progress).length}
+                                    {filterTasks(tasks.pending).length +
+                                        filterTasks(tasks.in_progress).length}
                                 </div>
                             </div>
                         </div>
                         <div className="relative overflow-hidden rounded-2xl border border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 p-6 shadow-lg dark:border-green-800 dark:from-green-900/20 dark:to-emerald-900/20">
-                            <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-green-500/10 to-transparent"></div>
+                            <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-green-500/10 to-transparent"></div>
                             <div className="relative">
-                                <div className="text-sm font-semibold uppercase tracking-wide text-green-600 dark:text-green-400">Completion Rate</div>
+                                <div className="text-sm font-semibold tracking-wide text-green-600 uppercase dark:text-green-400">
+                                    Completion Rate
+                                </div>
                                 <div className="mt-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-4xl font-black text-transparent">
                                     {(() => {
-                                        const total = filterTasks(tasks.pending).length + filterTasks(tasks.in_progress).length + filterTasks(tasks.completed).length;
-                                        return total > 0 ? Math.round((filterTasks(tasks.completed).length / total) * 100) : 0;
+                                        const total =
+                                            filterTasks(tasks.pending).length +
+                                            filterTasks(tasks.in_progress)
+                                                .length +
+                                            filterTasks(tasks.completed).length;
+                                        return total > 0
+                                            ? Math.round(
+                                                  (filterTasks(tasks.completed)
+                                                      .length /
+                                                      total) *
+                                                      100,
+                                              )
+                                            : 0;
                                     })()}
                                     %
                                 </div>

@@ -1,19 +1,18 @@
 import AppLayout from '@/layouts/app-layout';
 import { Task } from '@/types/models';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { 
-    CheckCircle2, 
-    Circle, 
-    Clock, 
-    Folder, 
-    ListTodo, 
-    Target, 
-    TrendingUp, 
+import {
     AlertCircle,
-    Sparkles,
-    Plus,
+    CheckCircle2,
+    Circle,
+    Clock,
     Eye,
-    Settings
+    Folder,
+    ListTodo,
+    Plus,
+    Sparkles,
+    Target,
+    TrendingUp,
 } from 'lucide-react';
 
 interface DashboardStats {
@@ -117,9 +116,9 @@ export default function Dashboard() {
     return (
         <AppLayout>
             <Head title="Dashboard" />
-            
+
             <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-                <div className="mx-auto max-w-[95%] 2xl:max-w-[1600px] space-y-8 p-6 lg:p-8">
+                <div className="mx-auto max-w-[95%] space-y-8 p-6 lg:p-8 2xl:max-w-[1600px]">
                     {/* Hero Header with Gradient */}
                     <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 p-8 shadow-2xl lg:p-12">
                         <div className="absolute inset-0 bg-black/10"></div>
@@ -131,7 +130,8 @@ export default function Dashboard() {
                                 </h1>
                             </div>
                             <p className="mt-3 max-w-2xl text-lg text-white/90 lg:text-xl">
-                                Welcome back! Here's an overview of your productivity and progress.
+                                Welcome back! Here's an overview of your
+                                productivity and progress.
                             </p>
                             <div className="mt-6 flex flex-wrap gap-3">
                                 <Link
@@ -151,7 +151,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                         {/* Decorative elements */}
-                        <div className="absolute -right-20 -top-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
+                        <div className="absolute -top-20 -right-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
                         <div className="absolute -bottom-20 -left-20 size-64 rounded-full bg-white/10 blur-3xl"></div>
                     </div>
 
@@ -163,8 +163,8 @@ export default function Dashboard() {
                                 className={`group relative overflow-hidden rounded-xl bg-gradient-to-br ${stat.bgGradient} p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl`}
                             >
                                 {/* Background decoration */}
-                                <div className="absolute -right-6 -top-6 size-24 rounded-full bg-white/50 blur-2xl transition-all group-hover:scale-150 dark:bg-white/10"></div>
-                                
+                                <div className="absolute -top-6 -right-6 size-24 rounded-full bg-white/50 blur-2xl transition-all group-hover:scale-150 dark:bg-white/10"></div>
+
                                 <div className="relative">
                                     <div className="flex items-start justify-between">
                                         <div className="flex-1">
@@ -175,16 +175,20 @@ export default function Dashboard() {
                                                 {stat.value}
                                             </p>
                                         </div>
-                                        <div className={`rounded-xl p-3 ${stat.iconBg} shadow-lg`}>
+                                        <div
+                                            className={`rounded-xl p-3 ${stat.iconBg} shadow-lg`}
+                                        >
                                             <stat.icon className="size-6 text-white" />
                                         </div>
                                     </div>
                                     {/* Progress indicator for percentage */}
                                     {stat.title === 'Completion Rate' && (
                                         <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/50 dark:bg-gray-700/50">
-                                            <div 
+                                            <div
                                                 className={`h-full rounded-full bg-gradient-to-r ${stat.gradient} transition-all duration-500`}
-                                                style={{ width: `${stats.completionRate}%` }}
+                                                style={{
+                                                    width: `${stats.completionRate}%`,
+                                                }}
                                             ></div>
                                         </div>
                                     )}
@@ -194,12 +198,12 @@ export default function Dashboard() {
                     </div>
 
                     {/* Completion Progress - Enhanced */}
-                    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-lg dark:border-gray-700 dark:bg-gray-800 lg:p-10">
-                        <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-blue-500/5 to-transparent"></div>
+                    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-lg lg:p-10 dark:border-gray-700 dark:bg-gray-800">
+                        <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-l from-blue-500/5 to-transparent"></div>
                         <div className="relative">
                             <div className="mb-6 flex items-center justify-between">
                                 <div>
-                                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white lg:text-3xl">
+                                    <h2 className="text-2xl font-bold text-gray-900 lg:text-3xl dark:text-white">
                                         Overall Progress
                                     </h2>
                                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -207,16 +211,20 @@ export default function Dashboard() {
                                     </p>
                                 </div>
                                 <div className="text-right">
-                                    <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-5xl font-bold text-transparent">
                                         {stats.completionRate}%
                                     </div>
-                                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Completion Rate</p>
+                                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                        Completion Rate
+                                    </p>
                                 </div>
                             </div>
                             <div className="relative h-8 overflow-hidden rounded-full bg-gray-200 shadow-inner dark:bg-gray-700">
                                 <div
                                     className="h-full rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 shadow-lg transition-all duration-700 ease-out"
-                                    style={{ width: `${stats.completionRate}%` }}
+                                    style={{
+                                        width: `${stats.completionRate}%`,
+                                    }}
                                 >
                                     <div className="h-full w-full animate-pulse bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
                                 </div>
@@ -269,15 +277,19 @@ export default function Dashboard() {
                                         key={task.id}
                                         href={`/tasks/${task.id}`}
                                         className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-gradient-to-r from-white to-gray-50/50 p-4 transition-all hover:scale-[1.01] hover:border-blue-300 hover:shadow-md dark:border-gray-700 dark:from-gray-800 dark:to-gray-800/50 dark:hover:border-blue-600"
-                                        style={{ animationDelay: `${idx * 50}ms` }}
+                                        style={{
+                                            animationDelay: `${idx * 50}ms`,
+                                        }}
                                     >
-                                        <div className={`rounded-full p-2 ${
-                                            task.priority === 'high' 
-                                                ? 'bg-red-100 dark:bg-red-900/30' 
-                                                : task.priority === 'medium'
-                                                ? 'bg-amber-100 dark:bg-amber-900/30'
-                                                : 'bg-blue-100 dark:bg-blue-900/30'
-                                        }`}>
+                                        <div
+                                            className={`rounded-full p-2 ${
+                                                task.priority === 'high'
+                                                    ? 'bg-red-100 dark:bg-red-900/30'
+                                                    : task.priority === 'medium'
+                                                      ? 'bg-amber-100 dark:bg-amber-900/30'
+                                                      : 'bg-blue-100 dark:bg-blue-900/30'
+                                            }`}
+                                        >
                                             {task.status === 'completed' ? (
                                                 <CheckCircle2 className="size-5 text-green-600 dark:text-green-400" />
                                             ) : (
@@ -292,15 +304,21 @@ export default function Dashboard() {
                                                 {task.due_date && (
                                                     <span className="flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400">
                                                         <Clock className="size-3" />
-                                                        {new Date(task.due_date).toLocaleDateString()}
+                                                        {new Date(
+                                                            task.due_date,
+                                                        ).toLocaleDateString()}
                                                     </span>
                                                 )}
                                                 {task.category && (
                                                     <span
                                                         className="rounded-full px-2.5 py-1 font-medium"
                                                         style={{
-                                                            backgroundColor: task.category.color + '20',
-                                                            color: task.category.color,
+                                                            backgroundColor:
+                                                                task.category
+                                                                    .color +
+                                                                '20',
+                                                            color: task.category
+                                                                .color,
                                                         }}
                                                     >
                                                         {task.category.name}
@@ -309,7 +327,7 @@ export default function Dashboard() {
                                             </div>
                                         </div>
                                         <span
-                                            className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold uppercase tracking-wide ${
+                                            className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-bold tracking-wide uppercase ${
                                                 task.priority === 'high'
                                                     ? 'bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300'
                                                     : task.priority === 'medium'
@@ -336,8 +354,12 @@ export default function Dashboard() {
                                 <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-white shadow-lg">
                                     <Plus className="size-7" />
                                 </div>
-                                <p className="font-bold text-gray-900 dark:text-white">Create Task</p>
-                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Add new task</p>
+                                <p className="font-bold text-gray-900 dark:text-white">
+                                    Create Task
+                                </p>
+                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    Add new task
+                                </p>
                             </div>
                         </Link>
                         <Link
@@ -349,8 +371,12 @@ export default function Dashboard() {
                                 <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white shadow-lg">
                                     <Target className="size-7" />
                                 </div>
-                                <p className="font-bold text-gray-900 dark:text-white">View Goals</p>
-                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Track progress</p>
+                                <p className="font-bold text-gray-900 dark:text-white">
+                                    View Goals
+                                </p>
+                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    Track progress
+                                </p>
                             </div>
                         </Link>
                         <Link
@@ -362,8 +388,12 @@ export default function Dashboard() {
                                 <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 text-white shadow-lg">
                                     <TrendingUp className="size-7" />
                                 </div>
-                                <p className="font-bold text-gray-900 dark:text-white">Analytics</p>
-                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">View insights</p>
+                                <p className="font-bold text-gray-900 dark:text-white">
+                                    Analytics
+                                </p>
+                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    View insights
+                                </p>
                             </div>
                         </Link>
                         <Link
@@ -375,8 +405,12 @@ export default function Dashboard() {
                                 <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 text-white shadow-lg">
                                     <Folder className="size-7" />
                                 </div>
-                                <p className="font-bold text-gray-900 dark:text-white">Categories</p>
-                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">Organize tasks</p>
+                                <p className="font-bold text-gray-900 dark:text-white">
+                                    Categories
+                                </p>
+                                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                                    Organize tasks
+                                </p>
                             </div>
                         </Link>
                     </div>

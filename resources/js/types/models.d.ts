@@ -66,7 +66,7 @@ export interface Task {
     completed_at?: string;
     created_at: string;
     updated_at: string;
-    
+
     // Relationships
     category?: Category;
     goal?: Goal;
