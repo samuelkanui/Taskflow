@@ -37,8 +37,8 @@ export default function Welcome({
 
                 {/* Navigation */}
                 <nav className="relative z-10 border-b border-white/10 bg-black/20 backdrop-blur-md">
-                    <div className="mx-auto max-w-7xl px-6 py-4">
-                        <div className="flex items-center justify-between">
+                    <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+                        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                             {/* Logo */}
                             <div className="flex items-center gap-2">
                                 <div className="rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 p-2 shadow-lg">
@@ -50,11 +50,11 @@ export default function Welcome({
                             </div>
 
                             {/* Nav Links */}
-                            <div className="flex items-center gap-4">
+                            <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
                                 {auth.user ? (
                                     <Link
                                         href={dashboard()}
-                                        className="inline-flex items-center gap-2 rounded-lg bg-white px-6 py-2.5 font-semibold text-gray-900 shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-semibold text-gray-900 shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
                                     >
                                         Go to Dashboard
                                         <ArrowRight className="size-4" />
@@ -63,14 +63,14 @@ export default function Welcome({
                                     <>
                                         <Link
                                             href={login()}
-                                            className="rounded-lg border-2 border-white/20 px-6 py-2.5 font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
+                                            className="w-full rounded-lg border border-white/20 px-4 py-2 text-center text-xs font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10 sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
                                         >
                                             Log in
                                         </Link>
                                         {canRegister && (
                                             <Link
                                                 href={register()}
-                                                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-2.5 font-semibold text-white shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                                                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-2 text-xs font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
                                             >
                                                 Get Started
                                                 <ArrowRight className="size-4" />
@@ -85,10 +85,10 @@ export default function Welcome({
 
                 {/* Hero Section */}
                 <div className="relative z-10 flex min-h-[calc(100vh-80px)] items-center">
-                    <div className="mx-auto max-w-7xl px-6 py-20 lg:py-32">
+                    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:py-28">
                         <div className="text-center">
                             {/* Badge */}
-                            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-2 text-indigo-300 backdrop-blur-sm">
+                            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold text-indigo-200 backdrop-blur-sm sm:text-sm">
                                 <Sparkles className="size-4" />
                                 <span className="text-sm font-semibold">
                                     Professional Task Management
@@ -96,7 +96,7 @@ export default function Welcome({
                             </div>
 
                             {/* Main Heading */}
-                            <h1 className="mb-6 text-5xl leading-tight font-black text-white md:text-6xl lg:text-7xl">
+                            <h1 className="mb-5 text-3xl font-black leading-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
                                 Organize Your Work.
                                 <br />
                                 <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -105,26 +105,24 @@ export default function Welcome({
                             </h1>
 
                             {/* Subheading */}
-                            <p className="mb-12 text-xl text-gray-300 md:text-2xl">
-                                A powerful, intuitive task management system to
-                                help you
-                                <br className="hidden md:block" />
-                                stay productive and reach your goals faster.
+                            <p className="mb-8 text-sm text-gray-300 sm:text-base md:text-xl">
+                                A powerful, intuitive task management system to help you stay
+                                productive and reach your goals faster.
                             </p>
 
                             {/* CTA Buttons */}
                             {!auth.user && (
-                                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                                <div className="flex flex-col items-center justify-center gap-2.5 sm:flex-row">
                                     <Link
                                         href={register()}
-                                        className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-4 text-lg font-bold text-white shadow-2xl transition-all hover:scale-105 hover:shadow-indigo-500/50"
+                                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-3 text-sm font-semibold text-white shadow-2xl transition-all hover:scale-[1.02] hover:shadow-indigo-500/40 sm:w-auto sm:text-lg"
                                     >
                                         Start Free Today
                                         <ArrowRight className="size-5" />
                                     </Link>
                                     <Link
                                         href={login()}
-                                        className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 bg-white/10 px-8 py-4 text-lg font-bold text-white backdrop-blur-sm transition-all hover:border-white/50 hover:bg-white/20"
+                                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/50 hover:bg-white/20 sm:w-auto sm:text-lg"
                                     >
                                         Sign In
                                     </Link>
@@ -132,7 +130,7 @@ export default function Welcome({
                             )}
 
                             {/* Features Grid */}
-                            <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                            <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                                 <FeatureCard
                                     icon={
                                         <CheckCircle className="size-8 text-green-400" />
@@ -168,7 +166,7 @@ export default function Welcome({
 
                 {/* Footer */}
                 <div className="relative z-10 border-t border-white/10 bg-black/20 backdrop-blur-md">
-                    <div className="mx-auto max-w-7xl px-6 py-6 text-center">
+                    <div className="mx-auto max-w-6xl px-4 py-6 text-center sm:px-6">
                         <p className="text-sm text-gray-400">
                             © 2025 TaskFlow. Built with{' '}
                             <span className="text-red-400">♥</span> for
