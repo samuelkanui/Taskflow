@@ -10,6 +10,12 @@ import {
     Sparkles,
     Target,
 } from 'lucide-react';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export default function Welcome({
     canRegister = true,
@@ -61,21 +67,51 @@ export default function Welcome({
                                     </Link>
                                 ) : (
                                     <>
-                                        <Link
-                                            href={login()}
-                                            className="w-full rounded-lg border border-white/20 px-4 py-2 text-center text-xs font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10 sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
-                                        >
-                                            Log in
-                                        </Link>
-                                        {canRegister && (
+                                        <div className="flex w-full items-center gap-2 sm:hidden">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg border border-white/20 px-4 py-2 text-xs font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10">
+                                                    Quick Actions
+                                                    <ArrowRight className="size-4" />
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent className="w-40 bg-gray-900/95 text-white backdrop-blur">
+                                                    <DropdownMenuItem asChild>
+                                                        <Link
+                                                            href={login()}
+                                                            className="w-full text-left text-xs font-semibold"
+                                                        >
+                                                            Log in
+                                                        </Link>
+                                                    </DropdownMenuItem>
+                                                    {canRegister && (
+                                                        <DropdownMenuItem asChild>
+                                                            <Link
+                                                                href={register()}
+                                                                className="w-full text-left text-xs font-semibold"
+                                                            >
+                                                                Get Started
+                                                            </Link>
+                                                        </DropdownMenuItem>
+                                                    )}
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
+                                        <div className="hidden items-center gap-2 sm:flex">
                                             <Link
-                                                href={register()}
-                                                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-2 text-xs font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl sm:w-auto sm:px-5 sm:py-2.5 sm:text-sm"
+                                                href={login()}
+                                                className="rounded-lg border border-white/20 px-5 py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
                                             >
-                                                Get Started
-                                                <ArrowRight className="size-4" />
+                                                Log in
                                             </Link>
-                                        )}
+                                            {canRegister && (
+                                                <Link
+                                                    href={register()}
+                                                    className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl"
+                                                >
+                                                    Get Started
+                                                    <ArrowRight className="size-4" />
+                                                </Link>
+                                            )}
+                                        </div>
                                     </>
                                 )}
                             </div>
